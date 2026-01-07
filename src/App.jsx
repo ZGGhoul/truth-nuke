@@ -1,15 +1,31 @@
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { firebaseConfig } from "../firebaseConfig";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useState } from 'react'
 import './App.css'
-import { initializeApp } from "firebase/app";
+import Login from "./Login";
+import { useEffect } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
+
+  let [user, setUser] = useState({});
+
+  useEffect(() => {
+      onAuthStateChanged(auth, (currentUser) => setUser(currentUser));
+    }, [])
 
   return (
     <div className='app'>
-        <img src="https://www.rover.com/blog/wp-content/uploads/2019/04/cute-big-eyes-1024x682.jpg" alt="" />
+      <Login auth={auth} user={user} />
+      
     </div>
+    
   )
 }
 
-export default App
+
