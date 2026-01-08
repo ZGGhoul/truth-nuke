@@ -1,22 +1,52 @@
-body{
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   background-image: linear-gradient(crimson,darkorange,yellow);
   background-attachment: fixed;
 }
-.app{
+
+.chat-layout {
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  margin: 0px auto;
+  max-width: 600px;
+  margin: 0 auto;
+  background: whitesmoke;
 }
-img{
-  max-height: 300px;
-  max-width: 400px;
+
+.messages-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  background-image: url(https://www.rover.com/blog/wp-content/uploads/2019/04/cute-big-eyes-1024x682.jpg)
 }
-.be{
+
+.msg-wrapper {
   display: flex;
-  margin: 0px auto;
   flex-direction: column;
-  
+  margin-bottom: 15px;
 }
-.be input{
-  max-width: 200px;
+
+.own { align-items: flex-end; }
+.other { align-items: flex-start; }
+
+.msg-bubble {
+  padding: 10px 16px;
+  border-radius: 18px;
+  max-width: 75%;
+  font-size: 0.95rem;
+}
+
+.own .msg-bubble { background-color: #30ca8f; color: white; border-bottom-right-radius: 4px; }
+.other .msg-bubble { background-color: #b3bedb; color: black; border-bottom-left-radius: 4px; }
+
+.msg-sender { margin-bottom: 4px; color: #65676b; font-size: 0.75rem; }
+
+.chat-input-row {
+  display: flex;
+  padding: 15px;
+  background: white;
+  border-top: 1px solid #ddd;
 }

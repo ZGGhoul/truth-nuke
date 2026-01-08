@@ -1,63 +1,34 @@
-import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
-import { Button, TextField } from '@mui/material';
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { Button, TextField, Paper, Typography, Box } from '@mui/material';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-export default function Login({auth, user}) {
+export default function Login({ auth }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  let [ email, setEmail ]  = useState("");
-  let [ password, setPassword ] = useState("");
-  let [ loginError, setLoginError ] = useState(false);
-  let [ errorText, setErrorText ] = useState("");
-
-    async function login(){
-        try{
-            await signInWithEmailAndPassword(auth, email, password);
-            setLoginError(false)
-            setErrorText("");
-            setEmail(""); setPassword("");
-        }
-        catch (err){
-            setLoginError(true)
-            setErrorText("Hibás felhasználónév vagy jelszó")
-        }   
+  const handleLogin = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (err) {
+      setError("Hibás adatok!");
     }
+  };
 
-    async function googleLogin(){
-        await signInWithPopup(auth, new GoogleAuthProvider());
-    }
-
-    async function logout(){
-        await signOut(auth);
-    }
+  const googleLogin = () => signInWithPopup(auth, new GoogleAuthProvider());
 
   return (
-    <div>
-      <div className='login'>
-            <img src="https://www.rover.com/blog/wp-content/uploads/2019/04/cute-big-eyes-1024x682.jpg" alt="" />
-            {user ? <div className='info'>
-              {user.email} <span className='logout' onClick={logout}>Logout</span>
-            </div> : <div className='urlap'>
-              <TextField
-                  error={loginError}
-                  helperText={errorText}
-                  className='email'
-                  label="Email"
-                  value={email}
-                  onChange={e =>setEmail(e.target.value)}
-              />
-              <TextField
-                  error={loginError}
-                  helperText={errorText}
-                  type='password'
-                  className='jelszo'
-                  label="Jelszó"
-                  value={password}
-                  onChange={e =>setPassword(e.target.value)}
-              />
-              <Button variant='contained' size='large' onClick={login}>Login</Button>
-              <Button variant='contained' size='large' onClick={googleLogin} color='secondary'>Google</Button>
-              </div>}
-          </div>
-    </div>
-  )
+    <Box className="auth-container">
+      <Paper elevation={3} sx={{ p: 4, width: 350, textAlign: 'center' }}>
+        <Typography variant="h5" gutterBottom>Bejelentkezés</Typography>
+        <TextField label="Email" fullWidth margin="normal" onChange={e => setEmail(e.target.value)} />
+        <TextField label="Jelszó" type="password" fullWidth margin="normal" onChange={e => setPassword(e.target.value)} />
+        {error && <Typography color="error">{error}</Typography>}
+        <Button variant="contained" fullWidth sx={{ mt: 2 }} onClick={handleLogin}>Belépés</Button>
+        <Button variant="outlined" color="secondary" fullWidth sx={{ mt: 1 }} onClick={googleLogin}>Google Belépés</Button>
+        <Typography sx={{ mt: 2 }}>Nincs fiókod? <Link to="/register">Regisztráció</Link></Typography>
+      </Paper>
+    </Box>
+  );
 }
