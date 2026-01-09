@@ -1,15 +1,23 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc } from "firebase/firestore"; 
 import { useState } from 'react';
 import { TextField, Button, Paper, Typography, Box } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-export default function Register({ auth }) {
+export default function Register({ auth, db }) { 
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const navigate = useNavigate();
 
   const handleReg = async () => {
     try {
-      await createUserWithEmailAndPassword(auth, email, pass);
+      const res = await createUserWithEmailAndPassword(auth, email, pass);
+      await setDoc(doc(db, "users", res.user.uid), {
+        uid: res.user.uid,
+        email: email
+      });
+
+      navigate("/");
     } catch (err) {
       alert("Hiba: " + err.message);
     }

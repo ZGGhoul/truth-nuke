@@ -27,15 +27,15 @@ export default function App() {
     return () => unsubscribe();
   }, []);
 
-  if (loading) return <div className="loader">Betöltés...</div>;
+  if (loading) return <div className="loading">Betöltés...</div>;
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={user ? <Chat user={user} auth={auth} db={db} /> : <Navigate to="/login" />} />
+        <Route path="/" element={user ? <Chat user={user} db={db} /> : <Navigate to="/login" />} />
         <Route path="/profile" element={user ? <Profile user={user} auth={auth} /> : <Navigate to="/login" />} />
         <Route path="/login" element={!user ? <Login auth={auth} /> : <Navigate to="/" />} />
-        <Route path="/register" element={!user ? <Register auth={auth} /> : <Navigate to="/" />} />
+        <Route path="/register" element={!user ? <Register auth={auth} db={db} /> : <Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
   );

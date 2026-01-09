@@ -1,52 +1,97 @@
-.auth-container {
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  overflow: hidden;
+}
+
+
+.auth-container { 
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-image: linear-gradient(crimson,darkorange,yellow);
-  background-attachment: fixed;
+  background-image: linear-gradient(crimson, darkorange, yellow);
 }
 
 .chat-layout {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  max-width: 600px;
+  max-width: 1200px; 
+  width: 100%;
   margin: 0 auto;
   background: whitesmoke;
+  overflow: hidden; 
 }
 
 .messages-area {
-  flex: 1;
-  overflow-y: auto;
+  flex: 1; 
+  overflow-y: auto; 
   padding: 20px;
-  background-image: url(https://www.rover.com/blog/wp-content/uploads/2019/04/cute-big-eyes-1024x682.jpg)
+  background-image: url("https://www.rover.com/blog/wp-content/uploads/2019/04/cute-big-eyes-1024x682.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; 
+  display: flex;
+  flex-direction: column;
+  
+  scrollbar-width: thin;
+  scrollbar-color: #30ca8f transparent;
+}
+
+.messages-area::-webkit-scrollbar {
+  width: 6px;
+}
+.messages-area::-webkit-scrollbar-thumb {
+  background-color: #30ca8f;
+  border-radius: 10px;
 }
 
 .msg-wrapper {
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
+  width: 100%;
 }
 
 .own { align-items: flex-end; }
 .other { align-items: flex-start; }
 
+.msg-sender { 
+  font-size: 0.75rem; 
+  color: #444; 
+  margin-bottom: 4px; 
+  font-weight: bold;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
 .msg-bubble {
   padding: 10px 16px;
   border-radius: 18px;
   max-width: 75%;
-  font-size: 0.95rem;
+  font-size: 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  word-wrap: break-word;
 }
 
-.own .msg-bubble { background-color: #30ca8f; color: white; border-bottom-right-radius: 4px; }
-.other .msg-bubble { background-color: #b3bedb; color: black; border-bottom-left-radius: 4px; }
+.own .msg-bubble { 
+  background-color: #30ca8f !important; 
+  color: white; 
+  border-bottom-right-radius: 4px; 
+}
 
-.msg-sender { margin-bottom: 4px; color: #65676b; font-size: 0.75rem; }
+.other .msg-bubble { 
+  background-color: #b3bedb !important; 
+  color: black; 
+  border-bottom-left-radius: 4px; 
+}
 
 .chat-input-row {
   display: flex;
   padding: 15px;
   background: white;
   border-top: 1px solid #ddd;
+  gap: 10px;
 }
