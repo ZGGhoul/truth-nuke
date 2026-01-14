@@ -19,6 +19,7 @@ body {
   flex-direction: column;
   max-width: 1200px; 
   width: 100%;
+  border: 1px solid black;
   margin: 0 auto;
   background: whitesmoke;
   overflow: hidden; 
@@ -29,7 +30,7 @@ body {
   overflow-y: auto; 
   padding: 20px;
   background-image: url("https://www.rover.com/blog/wp-content/uploads/2019/04/cute-big-eyes-1024x682.jpg");
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-attachment: fixed; 
   display: flex;
